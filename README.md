@@ -24,8 +24,6 @@ Designed to support multiple apps on the same EC2s.
 │   ├── setup_app_ec2.sh              # One-time App EC2 setup (parameterized per app)
 │   └── deploy.sh                     # Deploy code changes (run from project root)
 ├── infra/
-│   ├── provision_ec2.sh              # Bash: Creates VPC, SGs, App EC2 + DB EC2
-│   ├── destroy_ec2.sh                # Bash: Destroys all AWS resources
 │   ├── terraform/                    # Terraform (recommended)
 │   │   ├── main.tf                   # VPC, subnet, IGW, route table
 │   │   ├── security.tf               # App + DB security groups
@@ -163,21 +161,20 @@ Install system packages and Python deps on the App EC2:
 ```bash
 ssh -i MyAppKeyPair.pem ubuntu@<APP_EC2_PUBLIC_IP>
 
-sudo apt update && sudo apt install -y python3-pip python3-venv nginx
+sudo apt update && sudo apt install -y python3-pip python3-venv nginx git
 
 # Create app directory
 sudo mkdir -p /opt/myapp/backend /opt/myapp/frontend_dist
 sudo chown -R ubuntu:ubuntu /opt/myapp
 ```
 
-Copy backend files:
+Clone the repo directly on the EC2:
 ```bash
-scp -i MyAppKeyPair.pem backend/app.py backend/requirements.txt ubuntu@<APP_EC2_PUBLIC_IP>:/opt/myapp/backend/
+git clone https://github.com/sanjay-chaudhari/ec2-multiapp-deployment.git /opt/myapp
 ```
 
 Install Python dependencies:
 ```bash
-ssh -i MyAppKeyPair.pem ubuntu@<APP_EC2_PUBLIC_IP>
 cd /opt/myapp/backend
 python3 -m venv venv
 source venv/bin/activate
@@ -191,7 +188,7 @@ echo 'DATABASE_URL=postgresql://myapp_user:<DB_PASSWORD>@<DB_EC2_PRIVATE_IP>:543
 
 Install systemd service:
 ```bash
-sudo cp /path/to/systemd/myapp.service /etc/systemd/system/myapp.service
+sudo cp /opt/myapp/systemd/myapp.service /etc/systemd/system/myapp.service
 sudo systemctl daemon-reload
 sudo systemctl enable myapp
 sudo systemctl start myapp
@@ -199,7 +196,7 @@ sudo systemctl start myapp
 
 Configure Nginx:
 ```bash
-sudo cp /path/to/nginx/myapp.conf /etc/nginx/sites-available/myapp
+sudo cp /opt/myapp/nginx/myapp.conf /etc/nginx/sites-available/myapp
 sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/myapp
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo nginx -t && sudo systemctl reload nginx
