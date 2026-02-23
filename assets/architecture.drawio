@@ -1,0 +1,88 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.3.8">
+  <diagram name="Page-1" id="FKPRpOIpDDxSh5tZRf9r">
+    <mxGraphModel dx="1215" dy="1059" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" value="Internet" vertex="1">
+          <mxGeometry height="70" width="120" x="300" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.cisco.sites.generic_building;html=1;dashed=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontSize=13;fontStyle=1;verticalLabelPosition=top;verticalAlign=bottom;" value="AWS VPC (10.0.0.0/16)" vertex="1">
+          <mxGeometry height="420" width="520" x="100" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;arcSize=8;" value="App EC2&#xa;(t3.micro)" vertex="1">
+          <mxGeometry height="60" width="180" x="150" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="Nginx (port 80/443)&#xa;Reverse Proxy" vertex="1">
+          <mxGeometry height="50" width="180" x="150" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" value="Gunicorn :8000&#xa;App 1 (Flask API)" vertex="1">
+          <mxGeometry height="50" width="160" x="150" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" value="Gunicorn :8001&#xa;App 2 (Flask API)" vertex="1">
+          <mxGeometry height="50" width="160" x="150" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;arcSize=8;" value="DB EC2&#xa;(t3.micro)" vertex="1">
+          <mxGeometry height="60" width="180" x="400" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="9" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="PostgreSQL&#xa;app1_db" vertex="1">
+          <mxGeometry height="70" width="90" x="390" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="PostgreSQL&#xa;app2_db" vertex="1">
+          <mxGeometry height="70" width="90" x="500" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" value="React Frontend&#xa;(static files)" vertex="1">
+          <mxGeometry height="40" width="160" x="150" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="12" edge="1" parent="1" source="2" style="edgeStyle=orthogonalEdgeStyle;" target="4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="13" connectable="0" parent="12" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="port 80/443" vertex="1">
+          <mxGeometry relative="1" x="-0.1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="14" edge="1" parent="1" source="4" style="edgeStyle=orthogonalEdgeStyle;" target="5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="15" edge="1" parent="1" source="5" style="edgeStyle=orthogonalEdgeStyle;" target="6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="16" edge="1" parent="1" source="5" style="edgeStyle=orthogonalEdgeStyle;" target="7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="17" edge="1" parent="1" source="6" style="edgeStyle=orthogonalEdgeStyle;" target="9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="18" connectable="0" parent="17" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="port 5432&#xa;(private only)" vertex="1">
+          <mxGeometry relative="1" x="-0.1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="19" edge="1" parent="1" source="7" style="edgeStyle=orthogonalEdgeStyle;" target="10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="20" connectable="0" parent="19" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="port 5432&#xa;(private only)" vertex="1">
+          <mxGeometry relative="1" x="-0.1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="21" edge="1" parent="1" source="5" style="edgeStyle=orthogonalEdgeStyle;" target="11" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="22" parent="1" style="shape=mxgraph.cisco.computers_and_peripherals.pc;html=1;pointerEvents=1;dashed=0;fillColor=#036897;strokeColor=#ffffff;strokeWidth=2;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;fontSize=12;fontColor=#ffffff;" value="Client Browser" vertex="1">
+          <mxGeometry height="60" width="80" x="320" y="-80" as="geometry" />
+        </mxCell>
+        <mxCell id="23" edge="1" parent="1" source="22" style="edgeStyle=orthogonalEdgeStyle;" target="2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="24" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;fontSize=11;fontColor=#82b366;" value="Security Group&#xa;port 80/443 open&#xa;port 22 your IP only" vertex="1">
+          <mxGeometry height="50" width="200" x="340" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="25" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;fontSize=11;fontColor=#82b366;" value="Security Group&#xa;port 5432 from App SG only&#xa;port 22 your IP only" vertex="1">
+          <mxGeometry height="50" width="200" x="390" y="380" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
